@@ -1,0 +1,7 @@
+#!/bin/bash
+if [  -f *.class ]; then     
+    rm *.class; 
+fi
+
+javac -cp ".:lib/*" Main.java
+java -cp ".:lib/*" Main
