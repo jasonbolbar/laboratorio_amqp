@@ -1,6 +1,8 @@
 #!/bin/bash
-if [  -f *.class ]; then     
-    rm *.class; 
+count=`ls -1 *.class 2>/dev/null | wc -l`
+if [  $count != 0 ]
+then
+    rm *.class
 fi
 
 javac -cp ".:lib/*" Main.java
