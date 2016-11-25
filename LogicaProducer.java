@@ -22,7 +22,7 @@ public class LogicaProducer {
         System.out.println("Número de lineas:");
         int numerolineas = Integer.parseInt(in.nextLine());
         int cont = 0;
-        try(BufferedReader br = new BufferedReader(new FileReader("/home/jason/corpus35MillonesDeTweets.csv"))) {
+        try(BufferedReader br = new BufferedReader(new FileReader("~/corpus35MillonesDeTweets.csv"))) {
             for(String line; (line = br.readLine()) != null && cont <= numerolineas; ) {
                 String[] parts = line.split(",");
                 line = parts[parts.length -1];
