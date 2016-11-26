@@ -20,10 +20,14 @@ public class Core {
     private Function callback(){
         return (Function) (Object t) -> {
             String line = new String((byte[]) t);
-            String [] bigramas = procesador.getBigrams(line);
-            for(String bigrama : bigramas ) {
-		       productor.sendMessage("AMQPBigram", bigrama);
-			}
+            if ( !line.equals("######END######") ){
+            	String [] bigramas = procesador.getBigrams(line);
+	            for(String bigrama : bigramas ) {
+			       productor.sendMessage("AMQPBigram", bigrama);
+				}
+            }else{
+            	productor.sendMessage("AMQPBigram", line);
+            }
             return null;
         };
     }
