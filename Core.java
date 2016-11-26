@@ -11,35 +11,31 @@ public class Core {
     
     private AMQPConsumer consumidor;
     private BufferedWriter writer;
+    private BigramCounter contador;
     
     public void run(){
-        try {
-             this.writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("salida.txt")));
-        } catch (FileNotFoundException ex) {
-            System.err.println("No se pudo leer el archivo");
-        }
+    	this.contador = new BigramCounter();
         construirConsumidor();
     }
-    
     
     private void construirConsumidor(){
         this.consumidor= new AMQPConsumer();
         consumidor.setCallback(callback());
-        consumidor.handleMessagesFrom("AMQP");
+        consumidor.handleMessagesFrom("AMQPBigram");
     }
     
     private Function callback(){
         return (Function) (Object t) -> {
-            String message = new String((byte[]) t);
+            String bigram = new String((byte[]) t);
             boolean finCola = message.equals("######END######");
             if(!finCola){
                 try {
-                    writer.write(message);
-                    writer.newLine();
+                    contador.processBigram(bigram)
                 } catch (IOException ex) {
                     System.out.println("Mensaje no se pudo escribir");
                 }
             } else {
+            	contador.storeFrequencies();
                 consumidor.closeConnection();
                 try {
                     writer.close();
