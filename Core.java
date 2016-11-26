@@ -29,11 +29,6 @@ public class Core {
             } else {
             	contador.storeFrequencies();
                 consumidor.closeConnection();
-                try {
-                    writer.close();
-                } catch (IOException ex) {
-                    System.err.println("Archivo no se pudo cerrar");
-                }
             }
             return null;
         };
