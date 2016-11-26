@@ -7,10 +7,12 @@ public class Core {
     
     private AMQPConsumer consumidor;
     private BigramCounter contador;
-    
+    private boolean colaTerminada;
+
     public void run(){
-    	this.contador = new BigramCounter();
+        this.contador = new BigramCounter();
         this.consumidor= new AMQPConsumer();
+        this.colaTerminada= false;
         consumidor.setCallback(callback());
         consumidor.handleMessagesFrom("AMQPBigram");
     }
@@ -19,11 +21,14 @@ public class Core {
         return (Function) (Object t) -> {
             String bigram = new String((byte[]) t);
             boolean finCola = bigram.equals("######END######");
-            if(!finCola){
-                contador.processBigram(bigram);
+            if(finCola && !colaTerminada){
+               this.colaTerminada = true;
+            } 
+            if(!(colaTerminada && consumidor.queueSize("AMQPBigram") == 0)){
+              contador.processBigram(bigram);
             } else {
-            	contador.storeFrequencies();
-                consumidor.closeConnection();
+              contador.storeFrequencies();
+              consumidor.closeConnection();
             }
             return null;
         };
