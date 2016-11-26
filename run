@@ -6,4 +6,8 @@ then
 fi
 
 javac -cp ".:lib/*" Main.java
-java -cp ".:lib/*" Main
+
+echo "Numero de lineas":
+read lines
+date +%Y-%m-%d___%H:%M:%S >> times
+java -cp ".:lib/*" Main $lines

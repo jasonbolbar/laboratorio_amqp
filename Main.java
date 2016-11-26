@@ -12,7 +12,7 @@
 public class Main {
     
     public static void main (String [] args){
-        new Core().run();
+        new Core().run(args[0]);
     }
     
 }

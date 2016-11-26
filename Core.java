@@ -2,15 +2,12 @@ import amqp.Producer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Core {
     
-    public void run(){
+    public void run(String lineas){
+        int numerolineas = Integer.parseInt(lineas);
     	Producer producer = new Producer();
-        Scanner in = new Scanner(System.in);
-        System.out.println("Número de lineas:");
-        int numerolineas = Integer.parseInt(in.nextLine());
         int cont = 0;
         try(BufferedReader br = new BufferedReader(new FileReader("../corpus35MillonesDeTweets.csv"))) {
             for(String line; (line = br.readLine()) != null && cont <= numerolineas; ) {
