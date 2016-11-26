@@ -23,13 +23,9 @@ public class Core {
     private Function callback(){
         return (Function) (Object t) -> {
             String bigram = new String((byte[]) t);
-            boolean finCola = message.equals("######END######");
+            boolean finCola = bigram.equals("######END######");
             if(!finCola){
-                try {
-                    contador.processBigram(bigram)
-                } catch (IOException ex) {
-                    System.out.println("Mensaje no se pudo escribir");
-                }
+                contador.processBigram(bigram);
             } else {
             	contador.storeFrequencies();
                 consumidor.closeConnection();
