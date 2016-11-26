@@ -15,10 +15,6 @@ public class Core {
     
     public void run(){
     	this.contador = new BigramCounter();
-        construirConsumidor();
-    }
-    
-    private void construirConsumidor(){
         this.consumidor= new AMQPConsumer();
         consumidor.setCallback(callback());
         consumidor.handleMessagesFrom("AMQPBigram");

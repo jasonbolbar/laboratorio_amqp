@@ -28,7 +28,7 @@ class BigramStorage {
      * archivo
      * @throws IOException el archivo no se encuentra o no se pudo escribir
      */
-    public void storeBigrams() throws IOException{
+    public void BstoreBigrams() throws IOException{
         try {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(BIGRAM_FILENAME)));
             for( Map.Entry<String, Integer> entry : bigrams.entrySet()){
