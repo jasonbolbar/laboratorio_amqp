@@ -1,11 +1,12 @@
 package amqp;
-
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import com.rabbitmq.client.AMQP;
 class Client {
     
     
@@ -14,7 +15,6 @@ class Client {
     private ConnectionFactory factory;
     private Connection connection;
     protected Channel channel;
-
     public Client(){
         createfactory();
         createConnection();
@@ -44,7 +44,17 @@ class Client {
             System.err.println("Error al crear un Canal");
         }
     }
-    
+
+    public int queueSize(String queue){
+        AMQP.Queue.DeclareOk dok;
+        try {
+            dok = channel.queueDeclare(queue, true, false, false, null);
+            return dok.getMessageCount();
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }    
    
     public void closeConnection(){
         try {
