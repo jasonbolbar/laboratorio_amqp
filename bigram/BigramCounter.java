@@ -1,6 +1,8 @@
+package bigram;
+
 import java.util.LinkedHashMap;
 
-class BigramCounter {
+public class BigramCounter {
 
 	private final LinkedHashMap<String, Integer> bigramas;
 

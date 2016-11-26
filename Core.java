@@ -1,16 +1,11 @@
 
 import amqp.AMQPConsumer;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.function.Function;
+import bigram.BigramCounter;
 
 public class Core {
     
     private AMQPConsumer consumidor;
-    private BufferedWriter writer;
     private BigramCounter contador;
     
     public void run(){
