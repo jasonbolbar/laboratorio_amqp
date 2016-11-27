@@ -20,7 +20,7 @@ public class AMQPConsumer extends Client{
     public void handleMessagesFrom(String queue){
         setConsumer();
         try {
-            channel.basicQos(1);
+            //channel.basicQos(1);
             channel.basicConsume(queue, true, consumer);
         } catch (IOException ex) {
             System.err.println("El mensaje no se pudo recibir");
