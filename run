@@ -7,3 +7,6 @@ fi
 
 javac -cp ".:lib/*" Main.java
 java -cp ".:lib/*" Main
+date +%Y-%m-%d___%H:%M:%S >> times
+rm bigramas.txt
+echo 'Iteration was success'
